@@ -1,0 +1,21 @@
+App\Models\ppdb::create([
+    'nmSiswa' => 'Visca',
+    'NIS' => '021202121',
+    'almtSiswa' => 'Blok kumuh no 22',
+    'nmrSiswa' => '088971128242',
+    'email' => "Viscasigantengtea@gmail.com",
+    'inggris' =>85,
+    'indonesia' =>70,
+    'matematika' =>60
+
+])
+
+$table->id();
+$table->string("nmSiswa");
+$table->string("NIS");
+$table->string("almtSiswa");
+$table->string("nmrSiswa");
+$table->string("email");
+$table->integer("inggris");
+$table->integer("indonesia");
+$table->integer("matematika");
