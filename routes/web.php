@@ -67,73 +67,7 @@ Route::prefix('gas')->middleware('IsLogin')->group(function (){
 });
 
 
-// Mata pelajaran
-// Route::prefix('pelajaran')->middleware('IsLogin')->group(function(){
-//     Route::get('',[PelajaranController::class ,'index']);
 
-//     // Tambah pelajaran
-//     Route::get('/tambahpelajaran',[PelajaranController::class,'create']);
-//     Route::post('/tambahPelajaran',[PelajaranController::class,'store'])->name('pelajaran.tambah');
-
-//     // Edit Pelajaran 
-//     Route::get('/editpelajaran/{id}',[PelajaranController::class,'edit']);
-//     Route::post('/editpelajaran/{id}',[PelajaranController::class,'update'])->name('pelajaran.edit');
-
-//     // Hapus pelajaran 
-//     Route::any('/hapuspelajaran/{id}',[PelajaranController::class,'destroy']);
-
-
-// });
-
-// // PPDB 
-// Route::get('/ppdb',[PpdbController::class ,'index'])->middleware('IsLogin');
-// Route::any('/terima/{id}',[PpdbController::class ,'update'])->middleware('IsLogin');
-// Route::any('/tolak/{id}',[PpdbController::class,'tolak'])->middleware('IsLogin');
-
-
-// Route::prefix('guru')->middleware('IsLogin')->group(function () {
-//     // Rute yang berada dalam grup ini akan memiliki awalan '/admin'
-//     // Middleware 'auth' akan diterapkan pada semua rute dalam grup ini
-//     // Anda juga dapat menambahkan middleware lain sesuai kebutuhan
-
-// // Guru 
-// Route::get('/',[GuruController::class ,'index']);
-// Route::get('/guru/{id}',[GuruController::class,'show']);
-
-// // tambah guru 
-// Route::get('/tambahguru',[GuruController::class,'create']);
-// Route::post('/tambahguru',[GuruController::class,'store'])->name('guru.tambah');
-
-
-
-// // edit Guru 
-// Route::get('/editguru/{id}',[GuruController::class,'edit']);
-// Route::post('/updateguru/{id}',[GuruController::class,'update'])->name('guru.edit');
-
-// // hapus guru 
-// Route::any('/hapusguru/{id}',[GuruController::class,'destroy']);
-
-// });
-
-
-// Route::prefix('siswa')->middleware('IsLogin')->group(function(){
- 
-//     // Siswa 
-//     Route::get('/',[SiswaController::class ,'index'])->middleware('IsLogin');
-
-//     // tambah siswa 
-//     Route::get('/tambahsiswa',[siswaController::class,'create']);
-//     Route::post('/tambahsiswa',[siswaController::class,'store'])->name('siswa.tambah');
-
-
-
-//     // edit siswa 
-//     Route::get('/editsiswa/{id}',[siswaController::class,'edit']);
-//     Route::post('/updatesiswa/{id}',[siswaController::class,'update'])->name('siswa.edit');
-
-//     // hapus siswa 
-//     Route::any('/hapussiswa/{id}',[SiswaController::class,'destroy']);
-// });
 
 
 // Login 
