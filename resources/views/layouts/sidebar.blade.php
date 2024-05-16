@@ -55,14 +55,13 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Flame</p>
                 </a>
-              </li>sd
+              </li>
               <li class="nav-item">
                 <a href="/gas" class="nav-link {{ ($title === 'gas') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>MQ 2</p>
                 </a>
               </li>
-              
             </ul>
           </li>
         </ul>

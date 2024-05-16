@@ -9,7 +9,7 @@ class GasController extends Controller
 {
     //
     public function index(){
-        return view('admin/pages/dht', [
+        return view('admin/pages/mq', [
             "title" => "gas",
             "gases" => Gas::all()
             

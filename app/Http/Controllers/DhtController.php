@@ -11,8 +11,6 @@ class DhtController extends Controller
         return view('admin/pages/dht', [
             "title" => "dht",
             "dhts" => Dht::all()
-            
-            
         ]);
     } 
 
