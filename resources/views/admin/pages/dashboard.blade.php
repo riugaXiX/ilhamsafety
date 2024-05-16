@@ -2,11 +2,6 @@
 @section('csstambahan')
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-
-<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-
-<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
 
 <link rel="stylesheet" href="dist/css/adminlte.min.css?v=3.2.0">
 
@@ -159,23 +154,29 @@
 
 <script src="plugins/chart.js/Chart.min.js"></script>
 
-<script src="plugins/sparklines/sparkline.js"></script>
-
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function fetchData() {
+        $.ajax({
+            url: '/fetchdata', // Ganti dengan URL endpoint yang sesuai untuk memeriksa data baru
+            method: 'GET',
+            success: function(response) {
+                // Tampilkan alert jika ada data dengan nilai 0
+                if (response.alert) {
+                    alert(response.alert);
+                }
+            },
+            error: function(xhr) {
+                console.log('Error:', xhr.responseText);
+            }
+        });
+    }
+
+    // Pembaruan data setiap 5 detik
+    setInterval(fetchData, 5000);
+</script>
 @endsection
 <!-- end of section konten  -->

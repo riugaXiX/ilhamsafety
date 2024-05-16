@@ -11,10 +11,28 @@ class FlameController extends Controller
     public function index(){
         return view('admin/pages/flame', [
             "title" => "flame",
-            "dhts" => Flame::all()
+            "flames" => Flame::all()
             
             
         ]);
+    }
+
+    public function fetchdata(){
+        // Periksa apakah ada data baru dengan nilai 0
+        $latestFlame = Flame::latest()->first();
+        if ($latestFlame && $latestFlame->api == 0) {
+            return response()->json(['alert' => 'Ada api terdeteksi']);
+        }
+
+        return response()->json(['message' => 'Tidak ada data baru']);
+    }
+
+    public function tambah(){
+        return view(
+            'admin.pages.tambah.flametesting', [
+            "title" => "mamank"
+            ]
+        );
     }
 
     public function store(Request $request){

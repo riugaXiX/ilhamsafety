@@ -44,6 +44,8 @@ Route::post('/tambahdht', [DhtController::class, 'store']);
 Route::post('/tambahapi', [FlameController::class, 'store']);
 Route::post('/tambahgas', [GasController::class, 'store']);
 
+
+Route::get('/fetchdata', [FlameController::class,'fetchdata']);
 //DHT22
 Route::prefix('dht22')->middleware('IsLogin')->group(function (){
     Route::get('',[DhtController::class, 'index']);
@@ -56,6 +58,9 @@ Route::prefix('flame')->middleware('IsLogin')->group(function (){
     Route::get('',[FlameController::class, 'index']);
 // Route::any('/hapusguru/{id}',[GuruController::class,'destroy']);
     Route::any('/hapus/{id}',[FlameController::class,'destroy']);
+    Route::get('/tambahdataflame', [FlameController::class, 'tambah']);
+    Route::post('/tambahdataflame', [FlameController::class, 'store'])->name("flame.tambah");
+
 
 });
 

@@ -26,7 +26,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($dhts as $d)
+                    @foreach ($flames as $d)
                     <tr>
                       <td>{{ $d['api'] }}</td>
                       <td>{{ $d['created_at'] }}</td>
