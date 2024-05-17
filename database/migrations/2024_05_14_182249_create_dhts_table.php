@@ -15,7 +15,8 @@ class CreateDhtsTable extends Migration
     {
         Schema::create('dhts', function (Blueprint $table) {
             $table->id();
-            $table->float('Suhu');
+            $table->text('Suhu');
+            $table->text('kelembapan');
             $table->timestamps();
         });
     }
