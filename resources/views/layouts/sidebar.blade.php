@@ -35,8 +35,11 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          @php
+            $sensorActive = in_array($title, ['dht', 'flame', 'gas']);
+          @endphp
+          <li class="nav-item {{ $sensorActive ? 'menu-open' : 'menu-closed' }}">
+            <a href="#" class="nav-link {{ $sensorActive ? 'active' : '' }}">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Sensor
@@ -44,7 +47,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
+              <li class="nav-item">
                 <a href="/dht22" class="nav-link {{ ($title === 'dht') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>DHT22</p>
@@ -64,9 +67,16 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="/decision-tree" class="nav-link {{ ($title === 'C4.5') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>C4.5</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+  </aside>
   </aside>

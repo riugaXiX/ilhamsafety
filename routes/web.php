@@ -1,17 +1,13 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DecisionTreeController;
 use App\Http\Controllers\DhtController;
 use App\Http\Controllers\FlameController;
 use App\Http\Controllers\GasController;
-// use App\Http\Controllers\GuruController;
 use App\Http\Controllers\LoginController;
-// use App\Http\Controllers\PelajaranController;
-// use App\Http\Controllers\PpdbController;1
 use App\Http\Controllers\RegisterController;
-// use App\Http\Controllers\SiswaController;
-// use App\Http\Controllers\ClientController;
-// use App\Http\Controllers\PpdbcController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +32,11 @@ use Illuminate\Support\Facades\Route;
 // Route admin site
 Route::get('/',[DashboardController::class ,'index'])->middleware('IsLogin');
 Route::get('/admin',[DashboardController::class ,'index'])->middleware('IsLogin');
-
-
-
+// Route::get('/c45', [DecisionTreeController::class, 'showC45Details']);
+// Route::get('/train-predict', [DecisionTreeController::class, 'trainAndPredict']);
+// Route::get('/decision-tree', [App\Http\Controllers\DecisionTreeController::class, 'calculateC45'])->name('decision.tree');
+Route::get('/decision-tree', [DecisionTreeController::class, 'showCalculations'])->name('decision.tree');
+// Route::get('/show-decision-tree', [App\Http\Controllers\DecisionTreeController::class, 'showDecisionTree'])->name('show.decision.tree');
 //sensor-kiriman-arduino
 Route::post('/tambahdht', [DhtController::class, 'store']);
 Route::post('/tambahapi', [FlameController::class, 'store']);
@@ -86,4 +84,7 @@ Route::post('/logout',[LoginController::class, 'logout']);
 Route::get('/register',[RegisterController::class , 'index'])->middleware('guest');
 Route::post('/register',[RegisterController::class , 'store']);
 
+
+
+// Route::get('/c45', [DecisionTreeController::class, 'showDecisionTree']);
 // end of route admin site 
