@@ -70,17 +70,7 @@
     @endphp
     @endforeach
 
-<!-- <h2>Rules Based on Decision Tree</h2>
-<div class="rules">
-    @php
-        $rules = generateRules($tree);
-    @endphp
-    <ul>
-        @foreach ($rules as $rule)
-            <li>{{ $rule }}</li>
-        @endforeach
-    </ul>
-</div> -->
+
 @endsection
 
 @section('jstambahan')
@@ -99,58 +89,76 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     const root = d3.hierarchy(treeData, function(d) { return d.children ? Object.values(d.children) : null; });
-    const treeLayout = d3.tree().size([width, height]); // Tukar width dan height
+    const treeLayout = d3.tree().size([height, width]); // Ukuran pohon diatur secara horizontal
 
     treeLayout(root);
 
     // Nodes
-    const nodes = svg.selectAll('g.node')
-        .data(root.descendants())
-        .enter().append('g')
-        .attr('class', 'node')
-        .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; }); // Tukar d.x dan d.y
+    // Contoh bagian dari kode JavaScript yang memvisualisasikan pohon keputusan
+// Pastikan Anda mengonfigurasi dengan benar untuk menangani semua cabang dari 'kelembapan'
 
-    nodes.append('circle')
-        .attr('r', 10)
-        .style('fill', '#4682B4');
+// Nodes
+const nodes = svg.selectAll('g.node')
+    .data(root.descendants())
+    .enter().append('g')
+    .attr('class', 'node')
+    .attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; });
 
-    nodes.append('text')
-        .attr('dy', '.35em')
-        .attr('x', function(d) { return d.children ? -13 : 13; })
-        .style('text-anchor', function(d) { return d.children ? 'end' : 'start'; })
-        .text(function(d) { return d.data.attribute ? d.data.attribute : d.data; });
-
-    // Links
-    const links = svg.selectAll('path.link')
-        .data(root.links())
-        .enter().append('path')
-        .attr('class', 'link')
-        .attr('d', d3.linkHorizontal()
-            .x(function(d) { return d.x; }) // Tukar d.x dan d.y
-            .y(function(d) { return d.y; })) // Tukar d.x dan d.y
-        .style('fill', 'none')
-        .style('stroke', '#ccc')
-        .style('stroke-width', '2px');
-});
-</script>
-@endsection
-
-@php
-function generateRules($node, $path = []) {
-    $rules = [];
-    if ($node instanceof \stdClass) {
-        if (!empty($node->children)) {
-            foreach ($node->children as $value => $child) {
-                $newPath = array_merge($path, ["{$node->attribute} = '$value'"]);
-                $rules = array_merge($rules, generateRules($child, $newPath));
+nodes.append('circle')
+    .attr('r', 10)
+    .style('fill', function(d) {
+        // Ubah warna fill berdasarkan atribut 'kelembapan' dan nilai 'value'
+        if (d.data.attribute === 'kelembapan') {
+            if (d.data.value === 'lembab') {
+                return 'green';  // Warna untuk kelembapan 'lembab'
+            } else if (d.data.value === 'kering') {
+                return 'brown';  // Warna untuk kelembapan 'kering'
             }
         }
-    } else {
-        $condition = implode(" AND ", $path);
-        $rule = "IF " . $condition . " THEN class = '$node'";
-        $rules[] = $rule;
-    }
-    return $rules;
-}
-@endphp
+        return '#4682B4'; // Warna default
+    });
 
+nodes.append('text')
+    .attr('dy', '.35em')
+    .attr('x', function(d) { return d.children ? -13 : 13; })
+    .style('text-anchor', function(d) { return d.children ? 'end' : 'start'; })
+    .text(function(d) { return d.data.attribute ? d.data.attribute : d.data; });
+
+// Links
+const links = svg.selectAll('path.link')
+    .data(root.links())
+    .enter().append('path')
+    .attr('class', 'link')
+    .attr('d', d3.linkHorizontal()
+        .x(function(d) { return d.y; })
+        .y(function(d) { return d.x; }))
+    .style('fill', 'none')
+    .style('stroke', '#ccc')
+    .style('stroke-width', '2px');
+
+// Add link labels
+svg.selectAll('g.link-label')
+    .data(root.links())
+    .enter().append('g')
+    .attr('class', 'link-label')
+    .attr('transform', function(d) {
+        return 'translate(' + ((d.source.y + d.target.y) / 2) + ',' + ((d.source.x + d.target.x) / 2) + ')';
+    })
+    .append('text')
+    .attr('dy', -5)
+    .attr('text-anchor', 'middle')
+    .text(function(d) {
+        // Ganti dengan logika Anda untuk menampilkan label yang sesuai
+        const parentChildren = Object.entries(d.source.data.children || {});
+        for (const [key, value] of parentChildren) {
+            if (value === d.target.data || (value && value.attribute === d.target.data.attribute)) {
+                return key;
+            }
+        }
+        return '';
+    });
+
+});
+</script>
+
+@endsection

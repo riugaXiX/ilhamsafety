@@ -32,29 +32,30 @@ use Illuminate\Support\Facades\Route;
 // Route admin site
 Route::get('/',[DashboardController::class ,'index'])->middleware('IsLogin');
 Route::get('/admin',[DashboardController::class ,'index'])->middleware('IsLogin');
+
 // Route::get('/c45', [DecisionTreeController::class, 'showC45Details']);
 // Route::get('/train-predict', [DecisionTreeController::class, 'trainAndPredict']);
 // Route::get('/decision-tree', [App\Http\Controllers\DecisionTreeController::class, 'calculateC45'])->name('decision.tree');
 Route::get('/decision-tree', [DecisionTreeController::class, 'showCalculations'])->name('decision.tree');
 // Route::get('/show-decision-tree', [App\Http\Controllers\DecisionTreeController::class, 'showDecisionTree'])->name('show.decision.tree');
+
 //sensor-kiriman-arduino
 Route::post('/tambahdht', [DhtController::class, 'store']);
 Route::post('/tambahapi', [FlameController::class, 'store']);
 Route::post('/tambahgas', [GasController::class, 'store']);
 
-
 Route::get('/fetchdata', [FlameController::class,'fetchdata']);
+
+
 //DHT22
 Route::prefix('dht22')->middleware('IsLogin')->group(function (){
     Route::get('',[DhtController::class, 'index']);
-// Route::any('/hapusguru/{id}',[GuruController::class,'destroy']);
     Route::any('/hapus/{id}',[DhtController::class,'destroy']);
 
 });
 
 Route::prefix('flame')->middleware('IsLogin')->group(function (){
     Route::get('',[FlameController::class, 'index']);
-// Route::any('/hapusguru/{id}',[GuruController::class,'destroy']);
     Route::any('/hapus/{id}',[FlameController::class,'destroy']);
     Route::get('/tambahdataflame', [FlameController::class, 'tambah']);
     Route::post('/tambahdataflame', [FlameController::class, 'store'])->name("flame.tambah");
@@ -64,7 +65,6 @@ Route::prefix('flame')->middleware('IsLogin')->group(function (){
 
 Route::prefix('gas')->middleware('IsLogin')->group(function (){
     Route::get('',[GasController::class, 'index']);
-// Route::any('/hapusguru/{id}',[GuruController::class,'destroy']);
     Route::any('/hapus/{id}',[GasController::class,'destroy']);
 
 });
@@ -85,6 +85,4 @@ Route::get('/register',[RegisterController::class , 'index'])->middleware('guest
 Route::post('/register',[RegisterController::class , 'store']);
 
 
-
-// Route::get('/c45', [DecisionTreeController::class, 'showDecisionTree']);
 // end of route admin site 

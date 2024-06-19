@@ -106,7 +106,7 @@ class DecisionTreeController extends Controller
         $attributes = ['suhu', 'kelembapan', 'gas', 'api'];
 
         list($tree, $debugInfo) = $this->buildTree($data, $attributes, $targetAttribute);
-        dd($tree);
+        // dd($tree);
         $title = 'C4.5';
 
         return view('admin.pages.c45-details', compact('debugInfo', 'tree', 'title'));
