@@ -18,6 +18,7 @@ class DhtController extends Controller
     {
         $data = $request->validate([
             'suhu' => 'required',
+            'kelembapan' => 'required',
         ]);
 
         Dht::create($data);

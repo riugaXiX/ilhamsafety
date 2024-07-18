@@ -7,7 +7,6 @@ use App\Http\Controllers\FlameController;
 use App\Http\Controllers\GasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,30 +20,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
-
-
-
+//sensor-kiriman-arduino
+Route::post('/tambahdht', [DhtController::class, 'store']);
+Route::post('/tambahapi', [FlameController::class, 'store']);
+Route::post('/tambahgas', [GasController::class, 'store']);
+Route::get('/fetchdata', [FlameController::class,'fetchdata']);
 
 
 // Route admin site
 Route::get('/',[DashboardController::class ,'index'])->middleware('IsLogin');
 Route::get('/admin',[DashboardController::class ,'index'])->middleware('IsLogin');
-
-// Route::get('/c45', [DecisionTreeController::class, 'showC45Details']);
-// Route::get('/train-predict', [DecisionTreeController::class, 'trainAndPredict']);
-// Route::get('/decision-tree', [App\Http\Controllers\DecisionTreeController::class, 'calculateC45'])->name('decision.tree');
 Route::get('/decision-tree', [DecisionTreeController::class, 'showCalculations'])->name('decision.tree');
-// Route::get('/show-decision-tree', [App\Http\Controllers\DecisionTreeController::class, 'showDecisionTree'])->name('show.decision.tree');
-
-//sensor-kiriman-arduino
-Route::post('/tambahdht', [DhtController::class, 'store']);
-Route::post('/tambahapi', [FlameController::class, 'store']);
-Route::post('/tambahgas', [GasController::class, 'store']);
-
-Route::get('/fetchdata', [FlameController::class,'fetchdata']);
 
 
 //DHT22

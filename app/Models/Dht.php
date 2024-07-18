@@ -12,6 +12,7 @@ class Dht extends Model
     protected $table = 'dhts';
 
     protected $fillable = [
-        'suhu'
+        'suhu',
+        'kelembapan'
     ];
 }

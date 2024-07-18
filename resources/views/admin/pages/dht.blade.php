@@ -1,101 +1,35 @@
-@extends('layouts.template')
+<!-- <div class="container mt-5">
+    <h2>Users</h2>
+    <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Add New User</a>
 
-@section('csstambahan')
-  <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-@endsection
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-
-@section('konten')
-<div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Data DHT22</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body"> 
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Suhu</th>
-                    <th>Tanggal Masuk Data</th>
-                    <th>Tanggal Update data</th>
-                    <th>aksi</th>
-
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($dhts as $d)
-                    <tr>
-                      <td>{{ $d['Suhu'] }}</td>
-                      <td>{{ $d['created_at'] }}</td>
-                      <td>{{ $d['updated_at'] }}</td>
-
-                      <td>
-                      <!-- <a href="/siswa/editsiswa/{{$d['id']}}"><button type="button" class="btn btn-outline-primary">Edit</button></a>  -->
-                      <form action="dht22/hapus/{{ $d['id'] }}" method="post" onsubmit="return confirmDelete()">
-                           @csrf
-                           <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                        </form>
-                      </td>
-                    </tr>
-                      
-                    @endforeach
-                  
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                  <th>Suhu</th>
-                    <th>Tanggal Masuk Data</th>
-                    <th>Tanggal Update data</th>
-                    <th>aksi</th>
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-@endsection
-
-
-@section('jstambahan')
-<!-- DataTables  & Plugins -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="plugins/jszip/jszip.min.js"></script>
-<script src="plugins/pdfmake/pdfmake.min.js"></script>
-<script src="plugins/pdfmake/vfs_fonts.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-
-<script>
-    function confirmDelete() {
-        return confirm('Are you sure you want to delete this data?');
-    }
-</script>
-@endsection
+    <table id="users-table" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($users as $user)
+            <tr>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>
+                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm">View</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div> -->

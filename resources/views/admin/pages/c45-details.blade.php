@@ -89,76 +89,72 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     const root = d3.hierarchy(treeData, function(d) { return d.children ? Object.values(d.children) : null; });
-    const treeLayout = d3.tree().size([height, width]); // Ukuran pohon diatur secara horizontal
+    const treeLayout = d3.tree().size([width, height]); // Ukuran pohon diatur secara horizontal
 
     treeLayout(root);
 
     // Nodes
-    // Contoh bagian dari kode JavaScript yang memvisualisasikan pohon keputusan
-// Pastikan Anda mengonfigurasi dengan benar untuk menangani semua cabang dari 'kelembapan'
+    const nodes = svg.selectAll('g.node')
+        .data(root.descendants())
+        .enter().append('g')
+        .attr('class', 'node')
+        .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
 
-// Nodes
-const nodes = svg.selectAll('g.node')
-    .data(root.descendants())
-    .enter().append('g')
-    .attr('class', 'node')
-    .attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; });
-
-nodes.append('circle')
-    .attr('r', 10)
-    .style('fill', function(d) {
-        // Ubah warna fill berdasarkan atribut 'kelembapan' dan nilai 'value'
-        if (d.data.attribute === 'kelembapan') {
-            if (d.data.value === 'lembab') {
-                return 'green';  // Warna untuk kelembapan 'lembab'
-            } else if (d.data.value === 'kering') {
-                return 'brown';  // Warna untuk kelembapan 'kering'
+    nodes.append('circle')
+        .attr('r', 10)
+        .style('fill', function(d) {
+            // Ubah warna fill berdasarkan atribut 'kelembapan' dan nilai 'value'
+            if (d.data.attribute === 'kelembapan') {
+                if (d.data.value === 'lembab') {
+                    return 'green';  // Warna untuk kelembapan 'lembab'
+                } else if (d.data.value === 'kering') {
+                    return 'brown';  // Warna untuk kelembapan 'kering'
+                }
             }
-        }
-        return '#4682B4'; // Warna default
-    });
+            return '#4682B4'; // Warna default
+        });
 
-nodes.append('text')
-    .attr('dy', '.35em')
-    .attr('x', function(d) { return d.children ? -13 : 13; })
-    .style('text-anchor', function(d) { return d.children ? 'end' : 'start'; })
-    .text(function(d) { return d.data.attribute ? d.data.attribute : d.data; });
+    nodes.append('text')
+        .attr('dy', '.35em')
+        .attr('x', function(d) { return d.children ? -13 : 13; })
+        .style('text-anchor', function(d) { return d.children ? 'end' : 'start'; })
+        .text(function(d) { return d.data.attribute ? d.data.attribute : d.data; });
 
-// Links
-const links = svg.selectAll('path.link')
-    .data(root.links())
-    .enter().append('path')
-    .attr('class', 'link')
-    .attr('d', d3.linkHorizontal()
-        .x(function(d) { return d.y; })
-        .y(function(d) { return d.x; }))
-    .style('fill', 'none')
-    .style('stroke', '#ccc')
-    .style('stroke-width', '2px');
+    // Links
+    const links = svg.selectAll('path.link')
+        .data(root.links())
+        .enter().append('path')
+        .attr('class', 'link')
+        .attr('d', d3.linkVertical()
+            .x(function(d) { return d.x; })
+            .y(function(d) { return d.y; }))
+        .style('fill', 'none')
+        .style('stroke', '#ccc')
+        .style('stroke-width', '2px');
 
-// Add link labels
-svg.selectAll('g.link-label')
-    .data(root.links())
-    .enter().append('g')
-    .attr('class', 'link-label')
-    .attr('transform', function(d) {
-        return 'translate(' + ((d.source.y + d.target.y) / 2) + ',' + ((d.source.x + d.target.x) / 2) + ')';
-    })
-    .append('text')
-    .attr('dy', -5)
-    .attr('text-anchor', 'middle')
-    .text(function(d) {
-        // Ganti dengan logika Anda untuk menampilkan label yang sesuai
-        const parentChildren = Object.entries(d.source.data.children || {});
-        for (const [key, value] of parentChildren) {
-            if (value === d.target.data || (value && value.attribute === d.target.data.attribute)) {
-                return key;
+    // Add link labels
+    svg.selectAll('g.link-label')
+        .data(root.links())
+        .enter().append('g')
+        .attr('class', 'link-label')
+        .attr('transform', function(d) {
+            return 'translate(' + ((d.source.x + d.target.x) / 2) + ',' + ((d.source.y + d.target.y) / 2) + ')';
+        })
+        .append('text')
+        .attr('dy', -5)
+        .attr('text-anchor', 'middle')
+        .text(function(d) {
+            // Ganti dengan logika Anda untuk menampilkan label yang sesuai
+            const parentChildren = Object.entries(d.source.data.children || {});
+            for (const [key, value] of parentChildren) {
+                if (value === d.target.data) {
+                    return key;
+                }
             }
-        }
-        return '';
-    });
-
+            return '';
+        });
 });
 </script>
+
 
 @endsection
